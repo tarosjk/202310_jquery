@@ -225,3 +225,40 @@ $('.works-container').slick({
   speed: 800,
   dots: true,
 });
+
+// laxの設定
+// 1. windowロード後にlaxを起動し、設定を行う
+$(window).on('load', () => {
+  // 2. laxを起動
+  lax.init();
+
+  // 3. ドライバーの設定
+  lax.addDriver(
+    'parallaxY',
+    () => {
+      return window.scrollY
+    }
+  );
+
+  // 4. 対象の要素にドライバーの値を適用
+  lax.addElements(
+    '.lax-target',
+    {
+      parallaxY: {
+        translateY: [
+          ['elInY', 'elOutY'], //ドライバーの数値
+          // [-80, 100], //要素の数値
+          {
+            767: [-80, 60],
+            768: [-80, 100],
+          }
+        ],
+        opacity: [
+          ['elInY', 'elInY+300'],
+          [0, 1]
+        ],
+      }
+    }
+  );
+
+});
